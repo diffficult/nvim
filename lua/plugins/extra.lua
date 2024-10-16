@@ -4,15 +4,22 @@ local plugins = {
 
     { "mistricky/codesnap.nvim", build = "make" },
 
-    -- You can use any plugin specification from lazy.nvim
+    { "nvchad/volt", lazy = true },
+
     {
-      "Pocco81/TrueZen.nvim",
-      cmd = { "TZAtaraxis", "TZMinimalist" },
-      config = function()
-        require "custom.configs.truezen" -- just an example path
-      end,
+      "nvchad/minty",
+      cmd = { "Shades", "Huefy" },
     },
 
+    -- You can use any plugin specification from lazy.nvim
+    -- {
+    --   "Pocco81/TrueZen.nvim",
+    --   cmd = { "TZAtaraxis", "TZMinimalist" },
+    --   config = function()
+    --     require "custom.configs.truezen" -- just an example path
+    --   end,
+    -- },
+    --
     -- this opts will extend the default opts
     {
       "nvim-treesitter/nvim-treesitter",

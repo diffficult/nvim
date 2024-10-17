@@ -1,36 +1,13 @@
----@type ChadrcConfig
 local options = {
 
   base46 = {
-    theme = "chadracula-evondev",
-    theme_toggle = { "chadracula-evondev", "tokyonight" },
+    theme = "falcon", -- default theme
+    hl_add = {},
     hl_override = {
      	Comment = { italic = true },
     	["@comment"] = { italic = true },
     },
-
-    lsp_semantic_tokens = false,
-
-    statusline = {
-      theme = "default", -- default/vscode/vscode_colored/minimal
-      -- default/round/block/arrow separators work only for default statusline theme
-      -- round and block will work for minimal theme only
-      separator_style = "round",
-      order = nil,
-      modules = nil,
-    },
-
-    ui = {
-      cmp = {
-        icons = true,
-        lspkind_text = true,
-        style = "default", -- default/flat_light/flat_dark/atom/atom_colored
-        border_color = "grey_fg", -- only applicable for "default" style, use color names from base30 variables
-        selected_item_bg = "colored", -- colored / simplei
-      },
-
-    telescope = { style = "bordered" },
-
+    integrations = {},
     extended_integrations = {
       "dap",
       "hop",
@@ -40,30 +17,84 @@ local options = {
       "trouble",
       "notify",
     },
-    nvdash = {
-      load_on_startup = true,
-      header = {
-         [[                                                     ]],
-         [[  ███▄    █ ▓█████  ▒█████   ██▒   █▓ ██▓ ███▄ ▄███▓ ]],
-         [[  ██ ▀█   █ ▓█   ▀ ▒██▒  ██▒▓██░   █▒▓██▒▓██▒▀█▀ ██▒ ]],
-         [[ ▓██  ▀█ ██▒▒███   ▒██░  ██▒ ▓██  █▒░▒██▒▓██    ▓██░ ]],
-         [[ ▓██▒  ▐▌██▒▒▓█  ▄ ▒██   ██░  ▒██ █░░░██░▒██    ▒██  ]],
-         [[ ▒██░   ▓██░░▒████▒░ ████▓▒░   ▒▀█░  ░██░▒██▒   ░██▒ ]],
-         [[ ░ ▒░   ▒ ▒ ░░ ▒░ ░░ ▒░▒░▒░    ░ ▐░  ░▓  ░ ▒░   ░  ░ ]],
-         [[ ░ ░░   ░ ▒░ ░ ░  ░  ░ ▒ ▒░    ░ ░░   ▒ ░░  ░      ░ ]],
-         [[    ░   ░ ░    ░   ░ ░ ░ ▒       ░░   ▒ ░░      ░    ]],
-         [[          ░    ░  ░    ░ ░        ░   ░         ░    ]],
-         [[                                 ░                   ]],
-         [[                                                     ]],
+    changed_themes = {},
+    transparency = false,
+    theme_toggle = { "falcon", "one_light" },
+  },
+
+  ui = {
+    cmp = {
+      icons = true,
+      icons_left = false, -- only for non-atom styles!
+      lspkind_text = true,
+      style = "default", -- default/flat_light/flat_dark/atom/atom_colored
+      border_color = "grey_fg", -- only applicable for "default" style, use color names from base30 variables
+      selected_item_bg = "colored", -- colored / simple
+      format_colors = {
+        tailwind = false, -- will work for css lsp too
+        icon = "󱓻",
       },
-      buttons = {
-        { "  Find File", "󱁐 f f", "Telescope find_files" },
-        { "󰈚  Recent Files", "󱁐 f o", "Telescope oldfiles" },
-        { "󰈭  Find Word", "󱁐 f w", "Telescope live_grep" },
-        { "  Bookmarks", "󱁐 m a", "Telescope marks" },
-        { "  Themes", "󱁐 t h", "Telescope themes" },
-        { "  Mappings", "󱁐 c h", "NvCheatsheet" },
+    },
+
+    telescope = { style = "borderless" }, -- borderless / bordered
+
+    statusline = {
+      enabled = true,
+      theme = "minimal", -- default/vscode/vscode_colored/minimal
+      -- default/round/block/arrow separators work only for default statusline theme
+      -- round and block will work for minimal theme only
+      separator_style = "round",
+      order = nil,
+      modules = nil,
+    },
+
+    -- lazyload it when there are 1+ buffers
+    tabufline = {
+      enabled = true,
+      lazyload = true,
+      order = { "treeOffset", "buffers", "tabs", "btns" },
+      modules = nil,
+    },
+  },
+
+  nvdash = {
+    load_on_startup = true,
+    header = {
+      "                                                            ",
+      "     ███▄    █ ▓█████  ▒█████   ██▒   █▓ ██▓ ███▄ ▄███▓     ",
+      "     ██ ▀█   █ ▓█   ▀ ▒██▒  ██▒▓██░   █▒▓██▒▓██▒▀█▀ ██▒     ",
+      "    ▓██  ▀█ ██▒▒███   ▒██░  ██▒ ▓██  █▒░▒██▒▓██    ▓██░     ",
+      "    ▓██▒  ▐▌██▒▒▓█  ▄ ▒██   ██░  ▒██ █░░░██░▒██    ▒██      ",
+      "    ▒██░   ▓██░░▒████▒░ ████▓▒░   ▒▀█░  ░██░▒██▒   ░██▒     ",
+      "    ░ ▒░   ▒ ▒ ░░ ▒░ ░░ ▒░▒░▒░    ░ ▐░  ░▓  ░ ▒░   ░  ░     ",
+      "    ░ ░░   ░ ▒░ ░ ░  ░  ░ ▒ ▒░    ░ ░░   ▒ ░░  ░      ░     ",
+      "       ░   ░ ░    ░   ░ ░ ░ ▒       ░░   ▒ ░░      ░        ",
+      "             ░    ░  ░    ░ ░        ░   ░         ░        ",
+      "                                    ░                       ",
+      "                    Powered By  eovim                     ",
+      "                                                            ",
+    },
+
+    buttons = {
+      { txt = "  Find File", keys = "ff", cmd = "Telescope find_files" },
+      { txt = "  Recent Files", keys = "fo", cmd = "Telescope oldfiles" },
+      { txt = "󰈭  Find Word", keys = "fw", cmd = "Telescope live_grep" },
+      { txt = "󱥚  Themes", keys = "th", cmd = ":lua require('nvchad.themes').open()" },
+      { txt = "  Mappings", keys = "ch", cmd = "NvCheatsheet" },
+
+      { txt = "─", hl = "NvDashLazy", no_gap = true, rep = true },
+
+      {
+        txt = function()
+          local stats = require("lazy").stats()
+          local ms = math.floor(stats.startuptime) .. " ms"
+          return "  Loaded " .. stats.loaded .. "/" .. stats.count .. " plugins in " .. ms
+        end,
+        hl = "NvDashLazy",
+        no_gap = true,
       },
+
+      { txt = "─", hl = "NvDashLazy", no_gap = true, rep = true },
     },
   },
 
@@ -80,16 +111,21 @@ local options = {
     },
   },
 
-  lsp = { signature = false },
+  lsp = { signature = true },
 
   cheatsheet = {
     theme = "grid", -- simple/grid
     excluded_groups = { "terminal (t)", "autopairs", "Nvim", "Opens" }, -- can add group name or with mode
   },
 
-  mason = { cmd = true, pkgs = {} },
+  mason = { pkgs = {} },
 
- },
+  colorify = {
+    enabled = true,
+    mode = "virtual", -- fg, bg, virtual
+    virt_text = "󱓻 ",
+    highlight = { hex = true, lspvars = true },
+  },
 }
 
 local status, chadrc = pcall(require, "chadrc")

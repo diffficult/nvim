@@ -1,7 +1,7 @@
 local options = {
 
   base46 = {
-    theme = "falcon", -- default theme
+    theme = "bearded-arc", -- default theme
     hl_add = {},
     hl_override = {
      	Comment = { italic = true },
@@ -19,7 +19,7 @@ local options = {
     },
     changed_themes = {},
     transparency = false,
-    theme_toggle = { "falcon", "one_light" },
+    theme_toggle = { "bearded-arc", "one_light" },
   },
 
   ui = {
